@@ -11,7 +11,7 @@ function CreateCarElements(data){
 }
 
 // AJAX Call to the requrested data.json file
-function CarApiCall(CallbackFunc, data){
+function CarApiCall(CallbackFunc, data = ""){
 
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "Scripts/data.json", true);
