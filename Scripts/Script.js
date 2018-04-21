@@ -5,6 +5,14 @@ function CarData(){
     return jsonCarData;
 }
 
+function CreateCarElements(data){
+
+    for(i in data.cars){
+        document.getElementById("carContainer").innerHTML += 
+        "<div class='car'><div class='info'><p> " + data.cars[i].name + "</p></div></div>";
+    }
+}
+
 // AJAX Call to the requrested data.json file
 function JsonParseCars(){
 

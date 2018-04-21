@@ -1,1 +1,57 @@
-h1 { color: #0000FF}
+*{
+    margin: 0px auto;
+    padding: 0px auto;
+}
+
+#container{
+    width: 900px;
+    min-height: 760px;
+    border: 1px solid black;
+}
+
+#carContainer{
+    margin: 0px auto;
+    margin-top: 100px;
+    padding: 0px auto;
+    width: 750px;
+    min-height: 200px;
+}
+
+.car{
+    position: relative;
+    width: 246px;
+    height: 100px;
+    float:left;
+}
+
+.car > .info{
+    position: relative;
+    margin:0px auto;
+    width:200px;
+    height: 80px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.car:nth-child(-n+3) > .info{
+    margin-top:0;
+    margin-bottom: 20px;
+}
+
+.car:nth-child(n+4) > .info{
+    margin-top:20px;
+    margin-bottom:0;
+}
+
+.car:nth-child(-n+3){
+    border-bottom:2px solid black;
+}
+.car:nth-child(-n+2){
+    border-right:2px solid black;
+}
+
+.car:nth-child(n+4){
+    border-right:2px solid black;
+}
+
+
