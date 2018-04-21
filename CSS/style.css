@@ -11,7 +11,7 @@
 
 #carContainer{
     margin: 0px auto;
-    margin-top: 100px;
+    margin-top: 50px;
     padding: 0px auto;
     width: 750px;
     min-height: 200px;
@@ -79,7 +79,45 @@
 }
 
 /* End car info */
+/* Search filter */
 
+#search{
+    position: relative;
+    margin-top:50px;
+    width:750px;
+    height: 50px;
+}
+
+#searchTb{
+    position: absolute;
+
+    width:95%;
+    left: 0px;
+    height: 30px;
+    border-color: #000;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#searchBtn{
+    position: absolute;
+    background-color: #fff; 
+    background-image: url("/Images/Search_icon.png");
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position-x: 50%; 
+    width:5%;
+    right: 0px;
+    height: 30px;
+    border-top:2px solid #000;
+    border-right:2px solid #000;
+    border-bottom:2px solid #000;
+    border-left: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* End search filter */
 .hidden{
     display:none;
 }

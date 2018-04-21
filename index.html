@@ -10,6 +10,11 @@
     </head>
     <body onload= "CarApiCall(CreateCarElements)">
         <div id = "container">
+            <!-- Search cars -->
+            <div id="search">
+                <input type="textbox" id="searchTb" placeholder="Search cars here"/>
+                <input type="button" id="searchBtn" onclick="CarApiCall(FilterCars, document.getElementById('searchTb').value)"/>
+            </div>
             <!-- Showing all cars -->
             <div id = "carContainer">
                 
