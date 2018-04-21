@@ -1,12 +1,12 @@
 function CarData(){
 
-    var jsonCarData = JsonParseCars();
-
+    var jsonCarData = CarApiCall();
+    
     return jsonCarData;
 }
 
 // AJAX Call to the requrested data.json file
-function JsonParseCars(){
+function CarApiCall(){
 
     var jcar = null;
 
@@ -19,9 +19,6 @@ function JsonParseCars(){
         }
     }
     xhttp.send(null);
-
-    if(jcar == null)
-    console.log("it is null");
 
     return jcar;
 
