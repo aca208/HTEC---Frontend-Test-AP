@@ -17,30 +17,32 @@
     min-height: 200px;
 }
 
+/* Car info css */
 .car{
     position: relative;
+    padding:0px;
     width: 246px;
     height: 100px;
     float:left;
 }
 
 .car > .info{
-    position: relative;
-    margin:0px auto;
+    position: absolute;
+    left:50%;
+    margin-left: -100px;
     width:200px;
     height: 80px;
     border: 2px solid black;
     border-radius: 5px;
 }
 
+/* First 3 childs and the rest positioning */
 .car:nth-child(-n+3) > .info{
-    margin-top:0;
-    margin-bottom: 20px;
+    top:0px 
 }
 
 .car:nth-child(n+4) > .info{
-    margin-top:20px;
-    margin-bottom:0;
+    bottom: 0px;
 }
 
 .car:nth-child(-n+3){
@@ -54,4 +56,31 @@
     border-right:2px solid black;
 }
 
+.car > .info .carName{
+    position: relative;
+    margin:5px;
+    float: left;
+}
+
+.car > .info .carPicute{
+    position: absolute;
+    right:0px;
+    bottom:0px;
+    width: 100px;
+    height: 100px;
+}
+
+.car > .info .carPicute img{
+    position: absolute;
+    right:0px;
+    bottom:0px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* End car info */
+
+.hidden{
+    display:none;
+}
 

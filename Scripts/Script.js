@@ -5,11 +5,15 @@ function CarData(){
     return jsonCarData;
 }
 
+// Filling elements of car container with id, name and image
 function CreateCarElements(data){
 
     for(i in data.cars){
         document.getElementById("carContainer").innerHTML += 
-        "<div class='car'><div class='info'><p> " + data.cars[i].name + "</p></div></div>";
+        "<div class='car'> <input type='hidden' name='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
+        "<div class='carName'> <p>"
+         + data.cars[i].name + 
+         "</p></div><div class='carPicute'> <img src='"+ data.cars[i].image +"' alt = '" + data.cars[i].name + "'/></div></div></div>";
     }
 }
 
