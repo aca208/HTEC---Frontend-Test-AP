@@ -3,7 +3,7 @@ function CreateCarElements(data){
 
     for(i in data.cars){
         document.getElementById("carContainer").innerHTML += 
-        "<div class='car'> <input type='hidden' name='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
+        "<div class='car'> <input type='hidden' class='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
         "<div class='carName'> <p>"
          + data.cars[i].name + 
          "</p></div><div class='carPicute'> <img src='"+ data.cars[i].image +"' alt = '" + data.cars[i].name + "'/></div></div></div>";
@@ -18,7 +18,7 @@ function FilterCars(data, name){
     for(i in data.cars){
         if(data.cars[i].name.toUpperCase().startsWith(name.toUpperCase())){
             document.getElementById("carContainer").innerHTML += 
-            "<div class='car'> <input type='hidden' name='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
+            "<div class='car'> <input type='hidden' class='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
             "<div class='carName'> <p>"
              + data.cars[i].name + 
              "</p></div><div class='carPicute'> <img src='"+ data.cars[i].image +"' alt = '" + data.cars[i].name + "'/></div></div></div>";
@@ -26,9 +26,64 @@ function FilterCars(data, name){
     }
 }
 
+// Creating containers for car info to be flipped
+function FlipCars(data){
+    // Timing out for car container to catch up
+    setTimeout(
+        (function(){
+            var elements = document.getElementsByClassName("car");
+        
+            for(i in elements){
+                var car_id = 0;
+                var hidden_id = elements[i].getElementsByClassName("carID")[0].value;
+                elements[i].getElementsByClassName("info")[0].classList.add("front");
+
+                for(j in data.cars){
+                    if(data.cars[j].id == hidden_id){
+                        car_id = j;
+                    }
+                }
+
+                var infoInnerHtlm = elements[i].innerHTML;
+                elements[i].innerHTML = 
+                "<div class='flip_container vertical disable_transitions_anims' onclick='CarApiCall(SelectCar, this)' onmouseover='EnableTransAnims(this)'>" + 
+                    " <div class ='flipper'>" + infoInnerHtlm + 
+                    "<div class='flippedInfo back'>" + 
+                    "<p>Description: " + data.cars[car_id].description +" <br/>" +
+                "Speed:" + data.cars[car_id].speed +"</p></div> </div> </div>";
+            }        
+        }),
+        0
+    );
+}
+
+
+// Trigger event for enabling animations and transitions
+function EnableTransAnims(node){
+    
+    if(node.classList.contains("disable_transitions_anims"))
+    {
+        node.classList.remove("disable_transitions_anims");
+    }
+}
+
+
+// Selecting data
+function SelectCar(data, node){
+
+    // Remove class only if another one exist
+    if(document.getElementsByClassName("selected").length > 0){
+        document.getElementsByClassName("selected")[0].classList.remove("selected");
+    }
+    node.classList.add("selected");
+
+}
+
+
+
 // AJAX Call to the requrested data.json file
 function CarApiCall(CallbackFunc, data = ""){
-
+    
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "Scripts/data.json", true);
     
@@ -37,6 +92,8 @@ function CarApiCall(CallbackFunc, data = ""){
             CallbackFunc(JSON.parse(this.response), data);
         }
     }
+
+    xhttp.timeout = 5000;
     xhttp.send(null);
 
 }

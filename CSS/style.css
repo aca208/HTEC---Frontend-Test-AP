@@ -3,6 +3,10 @@
     padding: 0px auto;
 }
 
+.disable_transitions_anims div {
+    animation: none !important;
+    }
+
 #container{
     width: 900px;
     min-height: 760px;
@@ -26,7 +30,14 @@
     float:left;
 }
 
-.car > .info{
+.flip_container{
+    position: relative;
+    perspective: 1000px;
+    width:100%;
+    height: 100%;
+}
+
+.car .info{
     position: absolute;
     left:50%;
     margin-left: -100px;
@@ -36,12 +47,93 @@
     border-radius: 5px;
 }
 
+.car .flippedInfo{
+    position: absolute;
+    left:50%;
+    margin-left: -100px;
+    width:200px;
+    height: 80px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+/* Selected item */
+.selected .info, .selected .flippedInfo{
+    background: rgba(0, 255, 0, 0.3);
+}
+
+/* End selected item */
+/* Flipping */
+
+/* Initial flip only after clicked button once*/
+.front{
+    animation: to_front 0.2s linear normal forwards;
+}
+
+.back{
+    animation: to_back 0.2s linear normal forwards;
+}
+
+.front {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    z-index: 1;
+}
+
+.back{
+    background: rgba(0, 0, 0, 0.1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: rotateX(180deg);
+}
+
+.back p{
+    font-size:12px;
+    margin:5px;
+}
+
+.vertical.flip_container:hover .front {
+    animation: to_back 0.2s linear normal forwards;
+}
+
+.vertical.flip_container:hover .back{
+    animation: to_front 0.2s linear normal forwards;
+}
+
+@keyframes to_back{
+    0%{
+        transform:rotateX(0deg);
+    }
+    100% {  
+        transform:rotateX(180deg)
+    }
+}
+
+@keyframes to_front{
+    0% {
+        transform:rotateX(180deg);
+    }
+    100%{
+        transform:rotateX(0deg)
+    }
+}
+
+/* End flipping */
+
+
 /* First 3 childs and the rest positioning */
-.car:nth-child(-n+3) > .info{
+.car:nth-child(-n+3) .info{
     top:0px 
 }
 
-.car:nth-child(n+4) > .info{
+.car:nth-child(n+4) .info{
+    bottom: 0px;
+}
+
+.car:nth-child(-n+3) .flippedInfo{
+    top:0px 
+}
+
+.car:nth-child(n+4) .flippedInfo{
     bottom: 0px;
 }
 
@@ -56,21 +148,21 @@
     border-right:2px solid black;
 }
 
-.car > .info .carName{
+.car .info .carName{
     position: relative;
     margin:5px;
     float: left;
 }
 
-.car > .info .carPicute{
+.car .info .carPicute{
     position: absolute;
     right:0px;
     bottom:0px;
-    width: 100px;
-    height: 100px;
+    width: 50%;
+    height: 100%;
 }
 
-.car > .info .carPicute img{
+.car .info .carPicute img{
     position: absolute;
     right:0px;
     bottom:0px;
@@ -79,6 +171,8 @@
 }
 
 /* End car info */
+
+
 /* Search filter */
 
 #search{

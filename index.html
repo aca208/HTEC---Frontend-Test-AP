@@ -3,12 +3,10 @@
         <title>Placeholder</title>
         <!-- Link to external CSS file -->
         <link rel="stylesheet" href="CSS/style.css" />
-        <!-- Calling external json file -->
-        <!-- <script src="Scripts/cars.json"></script> -->
         <!-- Link to external Javascript file -->
         <script src="Scripts/Script.js"></script>
     </head>
-    <body onload= "CarApiCall(CreateCarElements)">
+    <body onload= "CarApiCall(CreateCarElements); CarApiCall(FlipCars);">
         <div id = "container">
             <!-- Search cars -->
             <div id="search">
