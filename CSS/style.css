@@ -212,6 +212,22 @@
 }
 
 /* End search filter */
+
+
+/* Scale */
+#distanceScale{
+    box-sizing: border-box;
+    position:relative;
+    margin-top:50px;
+    width:750px;
+    height:150px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    overflow:hidden;
+}
+
+
+/* End */
 .hidden{
     display:none;
 }

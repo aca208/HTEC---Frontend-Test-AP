@@ -1,25 +1,25 @@
-<html>
+<html !DOCTYPE>
     <head>
         <title>Placeholder</title>
         <!-- Link to external CSS file -->
         <link rel="stylesheet" href="CSS/style.css" />
         <!-- Link to external Javascript file -->
-        <script src="Scripts/Script.js"></script>
+        <script type="text/javascript" src="Scripts/Script.js"></script>
     </head>
-    <body onload= "CarApiCall(CreateCarElements); CarApiCall(FlipCars);">
-        <div id = "container">
+    <body onload= "CarApiCall(CreateCarElements); CarApiCall(FlipCars); DrawScale();">
+        <main id = "container">
             <!-- Search cars -->
-            <div id="search">
+            <section id="search">
                 <input type="textbox" id="searchTb" placeholder="Search cars here"/>
                 <input type="button" id="searchBtn" onclick="CarApiCall(FilterCars, document.getElementById('searchTb').value)"/>
-            </div>
+            </section>
             <!-- Showing all cars -->
-            <div id = "carContainer">
+            <section id = "carContainer">
                 
-            </div>
-            <div id="distanceScale">
-
-            </div>
+            </section>
+            <section id="distanceScale">
+                <canvas id="canvasScale" width="750px" height="150px"></canvas>
+            </section>
         </div>
-    </body>
+    </main>
 </html>

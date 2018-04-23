@@ -94,6 +94,15 @@ function SelectCar(data, node){
     }
 }
 
+//Drawing Scale
+function DrawScale(){
+    var canv = document.getElementById("canvasScale");
+    var canvContx = canv.getContext("2d");
+    canvContx.fillStyle = "#000000";
+    for(var i=1; i<=3; i++){
+        canvContx.fillRect(750,i*50,-750,1); 
+    }
+}
 
 
 // AJAX Call to the requrested data.json file
