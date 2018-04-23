@@ -26,7 +26,7 @@
     float:left;
 }
 
-.car > .info{
+.car .info{
     position: absolute;
     left:50%;
     margin-left: -100px;
@@ -37,11 +37,11 @@
 }
 
 /* First 3 childs and the rest positioning */
-.car:nth-child(-n+3) > .info{
+.car:nth-child(-n+3) .info{
     top:0px 
 }
 
-.car:nth-child(n+4) > .info{
+.car:nth-child(n+4) .info{
     bottom: 0px;
 }
 
@@ -56,13 +56,13 @@
     border-right:2px solid black;
 }
 
-.car > .info .carName{
+.car .info .carName{
     position: relative;
     margin:5px;
     float: left;
 }
 
-.car > .info .carPicute{
+.car .info .carPicute{
     position: absolute;
     right:0px;
     bottom:0px;
@@ -70,7 +70,7 @@
     height: 100px;
 }
 
-.car > .info .carPicute img{
+.car .info .carPicute img{
     position: absolute;
     right:0px;
     bottom:0px;
@@ -115,6 +115,10 @@
     border-left: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.flippedInfo{
+    display: none;
 }
 
 /* End search filter */

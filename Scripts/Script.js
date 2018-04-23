@@ -24,10 +24,14 @@ function FilterCars(data, name){
             container: for(k in document.getElementsByClassName("car")){
                 if(document.getElementsByClassName("car")[k].innerHTML ==""){
                     document.getElementsByClassName("car")[k].innerHTML = 
-                    "<input type='hidden' name='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
-                    "<div class='carName'> <p>"
-                    + data.cars[i].name + 
-                    "</p></div><div class='carPicute'> <img src='"+ data.cars[i].image +"' alt = '" + data.cars[i].name + "'/></div></div>";
+                    "<div class='flip_container vertical disable_transitions_anims' onclick='CarApiCall(SelectCar, this)' onmouseover='EnableTransAnims(this)'>" + 
+                        " <div class ='flipper'>" + "<input type='hidden' name='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
+                        "<div class='carName'> <p>"
+                        + data.cars[i].name + 
+                        "</p></div><div class='carPicute'> <img src='"+ data.cars[i].image +"' alt = '" + data.cars[i].name + "'/></div></div>" + 
+                        "<div class='flippedInfo back'>" + 
+                        "<p>Description: " + data.cars[i].description +" <br/>" +
+                    "Speed:" + data.cars[i].speed +"</p></div> </div> </div>";  
                     k=0;
                     break container;
                 }
