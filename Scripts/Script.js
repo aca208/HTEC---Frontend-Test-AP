@@ -13,17 +13,32 @@ function CreateCarElements(data){
 // Filtering cars using search
 function FilterCars(data, name){
 
-    document.getElementById("carContainer").innerHTML = ""; 
+    // Clearing out containers
+    for(j in document.getElementsByClassName("car")){
+        document.getElementsByClassName("car")[j].innerHTML = "";
+    }
 
-    for(i in data.cars){
+    // Populating empty containers
+    carFor: for(i in data.cars){
         if(data.cars[i].name.toUpperCase().startsWith(name.toUpperCase())){
-            document.getElementById("carContainer").innerHTML += 
-            "<div class='car'> <input type='hidden' class='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
-            "<div class='carName'> <p>"
-             + data.cars[i].name + 
-             "</p></div><div class='carPicute'> <img src='"+ data.cars[i].image +"' alt = '" + data.cars[i].name + "'/></div></div></div>";
+            container: for(k in document.getElementsByClassName("car")){
+                if(document.getElementsByClassName("car")[k].innerHTML ==""){
+                    document.getElementsByClassName("car")[k].innerHTML = 
+                    "<div class='flip_container vertical disable_transitions_anims' onclick='CarApiCall(SelectCar, this)' onmouseover='EnableTransAnims(this)'>" + 
+                        " <div class ='flipper'>" + "<input type='hidden' name='carID' value='" + data.cars[i].id + "'/> <div class='info'>"+
+                        "<div class='carName'> <p>"
+                        + data.cars[i].name + 
+                        "</p></div><div class='carPicute'> <img src='"+ data.cars[i].image +"' alt = '" + data.cars[i].name + "'/></div></div>" + 
+                        "<div class='flippedInfo back'>" + 
+                        "<p>Description: " + data.cars[i].description +" <br/>" +
+                    "Speed:" + data.cars[i].speed +"</p></div> </div> </div>";  
+                    k=0;
+                    break container;
+                }
+            }
         }
     }
+
 }
 
 // Creating containers for car info to be flipped

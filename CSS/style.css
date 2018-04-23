@@ -30,6 +30,7 @@
     float:left;
 }
 
+<<<<<<< HEAD
 .flip_container{
     position: relative;
     perspective: 1000px;
@@ -37,6 +38,8 @@
     height: 100%;
 }
 
+=======
+>>>>>>> third-task
 .car .info{
     position: absolute;
     left:50%;
@@ -209,6 +212,10 @@
     border-left: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.flippedInfo{
+    display: none;
 }
 
 /* End search filter */
