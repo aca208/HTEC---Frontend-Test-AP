@@ -87,11 +87,11 @@ function EnableTransAnims(node){
 function SelectCar(data, node){
 
     // Remove class only if another one exist
-    if(document.getElementsByClassName("selected").length > 0){
-        document.getElementsByClassName("selected")[0].classList.remove("selected");
+    if(document.getElementsByClassName("selected").length < 3){
+        node.classList.toggle("selected");
+    }else{
+        node.classList.remove("selected");
     }
-    node.classList.add("selected");
-
 }
 
 
