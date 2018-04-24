@@ -6,7 +6,7 @@ function CarApiCall(){
     
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-            localStorage.setItem('carApiData', JSON.stringify(this.responseText));
+            localStorage.setItem('carApiData', this.responseText);
         }
     }
     xhttp.send(null);
