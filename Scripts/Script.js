@@ -144,6 +144,29 @@ function DrawScale(){
             }
         }),
     15);
+    
+    CarApiCall(DrawingSpeedLimit, [canvContx, rectX, rectY, rectWidth, rectHeight]);
+
+}
+
+
+// Drawing Speed limits
+function DrawingSpeedLimit(data, context){
+
+    var rectWidth = context[3];
+    var rectHeight = context[4];
+    var rectX = context[1];
+    var rectY = context[2];
+    var lineLength = 100;
+
+    for(i in data.speed_limits){
+        context[0].beginPath();
+        context[0].setLineDash([40, 10]);
+        context[0].moveTo(rectX + ( (750 * data.speed_limits[i].position) / data.distance), rectY);
+        context[0].lineTo(rectX + ( (750 * data.speed_limits[i].position) / data.distance), rectY + rectHeight +50);
+        context[0].stroke();
+        context[0].closePath();
+    }
 }
 
 function SetDistance(data){
