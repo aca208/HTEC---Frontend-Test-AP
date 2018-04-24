@@ -137,10 +137,13 @@ function DrawScale(){
     canvContx.textAlign = "center";
     canvContx.font = "20px Arial";
 
-    for(var i=1; i<=9; i++){
-        canvContx.fillText( i + "xN", i*(rectWidth/10) ,rectY - 20);
-    }
-    
+    setTimeout(
+        (function(){
+            for(var i=1; i<=9; i++){
+                canvContx.fillText( i + "x" + (document.getElementsByClassName("distanceHidden")[0].value /10), i*(rectWidth/10) ,rectY - 20); // To do: add distance to this shit
+            }
+        }),
+    15);
 }
 
 function SetDistance(data){
