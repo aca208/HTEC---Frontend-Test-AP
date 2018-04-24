@@ -1,5 +1,7 @@
 // Filling elements of car container with id, name and image
-function CreateCarElements(data){
+function CreateCarElements(carData){
+
+    var data = JSON.parse(carData);
 
     for(i in data.cars){
         document.getElementById("carContainer").innerHTML += 
@@ -11,7 +13,9 @@ function CreateCarElements(data){
 }
 
 // Filtering cars using search
-function FilterCars(data, name){
+function FilterCars(carData, name){
+
+    var data = JSON.parse(carData);
 
     // Clearing out containers
     for(j in document.getElementsByClassName("car")){
@@ -24,7 +28,7 @@ function FilterCars(data, name){
             container: for(k in document.getElementsByClassName("car")){
                 if(document.getElementsByClassName("car")[k].innerHTML ==""){
                     document.getElementsByClassName("car")[k].innerHTML = 
-                    "<div class='flip_container vertical disable_transitions_anims' onclick='CarApiCall(SelectCar, this)' onmouseover='EnableTransAnims(this)'>" + 
+                    "<div class='flip_container vertical disable_transitions_anims' onclick='SelectCar(this)' onmouseover='EnableTransAnims(this)'>" + 
                         " <div class ='flipper'>" + "<input type='hidden' class='carID' value='" + data.cars[i].id + "'/> <div class='info front'>"+
                         "<div class='carName'> <p>"
                         + data.cars[i].name + 
@@ -42,34 +46,33 @@ function FilterCars(data, name){
 }
 
 // Creating containers for car info to be flipped
-function FlipCars(data){
-    // Timing out for car container to catch up
-    setTimeout(
-        (function(){
-            var elements = document.getElementsByClassName("car");
+function FlipCars(carData){
+
+    var data = JSON.parse(carData);
+    var elements = document.getElementsByClassName("car");
+
+    for( var i = 0; i < elements.length; i++){
+
+        var car_id = 0;
+        var hidden_id = document.querySelectorAll (".car .carID")[i];
+        var info_div = document.querySelectorAll(".car .info")[i];
         
-            for(i in elements){
-                var car_id = 0;
-                var hidden_id = elements[i].getElementsByClassName("carID")[0].value;
-                elements[i].getElementsByClassName("info")[0].classList.add("front");
+        info_div.classList.add("front");
+        
+        for(j in data.cars){
+            if(data.cars[j].id == hidden_id){
+                car_id = j;
+            }
+        }
 
-                for(j in data.cars){
-                    if(data.cars[j].id == hidden_id){
-                        car_id = j;
-                    }
-                }
-
-                var infoInnerHtlm = elements[i].innerHTML;
-                elements[i].innerHTML = 
-                "<div class='flip_container vertical disable_transitions_anims' onclick='CarApiCall(SelectCar, this)' onmouseover='EnableTransAnims(this)'>" + 
-                    " <div class ='flipper'>" + infoInnerHtlm + 
-                    "<div class='flippedInfo back'>" + 
-                    "<p>Description: " + data.cars[car_id].description +" <br/>" +
-                "Speed:" + data.cars[car_id].speed +"</p></div> </div> </div>";
-            }        
-        }),
-        0
-    );
+        var infoInnerHtlm = elements[i].innerHTML;
+        elements[i].innerHTML = 
+        "<div class='flip_container vertical disable_transitions_anims' onclick='SelectCar(this)' onmouseover='EnableTransAnims(this)'>" + 
+            " <div class ='flipper'>" + infoInnerHtlm + 
+            "<div class='flippedInfo back'>" + 
+            "<p>Description: " + data.cars[car_id].description +" <br/>" +
+        "Speed:" + data.cars[car_id].speed +"</p></div> </div> </div>";
+    }  
 }
 
 
@@ -84,7 +87,7 @@ function EnableTransAnims(node){
 
 
 // Selecting data
-function SelectCar(data, node){
+function SelectCar(node){
 
     // Remove class only if another one exist
     if(document.getElementsByClassName("selected").length < 3){
@@ -97,7 +100,8 @@ function SelectCar(data, node){
 //Drawing Scale
 function DrawScale(){
     
-    CarApiCall(SetDistance);
+    SetDistance(localStorage.getItem("carApiData"));
+
     var canv = document.getElementById("canvasScale");
     var canvContx = canv.getContext("2d");
     canvContx.fillStyle = "#000000";
@@ -133,24 +137,23 @@ function DrawScale(){
         canvContx.fillRect(rectX + i*75, rectY, 1, rectHeight);
     }
 
-    setTimeout(
-        (function(){
-            for(var i=1; i<=9; i++){
-                canvContx.textBaseline = "middle";
-                canvContx.textAlign = "center";
-                canvContx.font = "20px Arial";
-                canvContx.fillText( i + "x" + (document.getElementsByClassName("distanceHidden")[0].value /10), i*(rectWidth/10) ,rectY - 20); 
-            }
-        }),
-    20);
-    
-    CarApiCall(DrawingSpeedLimit, [canvContx, rectX, rectY, rectWidth, rectHeight]);
+    canvContx.textBaseline = "middle";
+    canvContx.textAlign = "center";
+    canvContx.font = "20px Arial";
+
+    for(var i=1; i<=9; i++){
+        canvContx.fillText( i + "x" + (document.getElementsByClassName("distanceHidden")[0].value /10), i*(rectWidth/10) ,rectY - 20);
+    }
+
+    DrawingSpeedLimit(localStorage.getItem("carApiData"), [canvContx, rectX, rectY, rectWidth, rectHeight]);
 
 }
 
 
 // Drawing Speed limits
-function DrawingSpeedLimit(data, context){
+function DrawingSpeedLimit(carData, context){
+
+    var data = JSON.parse(carData);
 
     var rectWidth = context[3];
     var rectHeight = context[4];
@@ -187,25 +190,24 @@ function DrawingSpeedLimit(data, context){
     }
 }
 
-function SetDistance(data){
+function SetDistance(carData){
     
+    var data = JSON.parse(carData);
+
     document.getElementsByClassName("distanceHidden")[0].value = data.distance;
     
 }
 
 // AJAX Call to the requrested data.json file
-function CarApiCall(CallbackFunc, data = ""){
-    
+function CarApiCall(){
+
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "Scripts/data.json", true);
     
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-            CallbackFunc(JSON.parse(this.response), data);
+            localStorage.setItem('carApiData', this.responseText);
         }
     }
-
-    xhttp.timeout = 5000;
     xhttp.send(null);
-
 }
