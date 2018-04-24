@@ -1,5 +1,7 @@
 // Filling elements of car container with id, name and image
-function CreateCarElements(data){
+function CreateCarElements(carData){
+
+    var data = JSON.parse(carData);
 
     for(i in data.cars){
         document.getElementById("carContainer").innerHTML += 
