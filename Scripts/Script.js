@@ -96,14 +96,43 @@ function SelectCar(data, node){
 
 //Drawing Scale
 function DrawScale(){
+    
+    CarApiCall(SetDistance);
     var canv = document.getElementById("canvasScale");
     var canvContx = canv.getContext("2d");
     canvContx.fillStyle = "#000000";
-    for(var i=1; i<=3; i++){
-        canvContx.fillRect(750,i*50,-750,1); 
-    }
+    
+    // Scale parameters
+    var rectWidth = 750;
+    var rectHeight = 210;
+    var rectX = 0;
+    var rectY = 0;
+    var cornerRadius = 10;
+
+    // Drawing scale of distance
+    canvContx.beginPath();
+    canvContx.moveTo(rectX + cornerRadius, rectY);
+    canvContx.lineTo(rectX + (rectWidth - 2 * cornerRadius) + cornerRadius, rectY);
+    canvContx.arcTo(rectWidth, rectY,  rectY + rectWidth, rectY + cornerRadius, cornerRadius );
+    canvContx.lineTo(rectX + rectWidth, rectY + rectHeight - cornerRadius);
+    canvContx.arcTo(rectWidth, rectY + rectHeight, rectY + rectWidth - cornerRadius, rectY + rectHeight, cornerRadius );
+    canvContx.lineTo(rectX + cornerRadius, rectY + rectHeight);
+    canvContx.arcTo(rectX, rectY + rectHeight,  rectX, rectY + rectHeight - cornerRadius, cornerRadius );
+    canvContx.lineTo(rectX, rectY + cornerRadius);
+    canvContx.arcTo(rectX, rectY,  rectX + cornerRadius, rectY, cornerRadius );
+    canvContx.lineWidth = 1;
+    canvContx.stroke();
+    canvContx.closePath();
+
+    //Next
+    
 }
 
+function SetDistance(data){
+    
+    document.getElementsByClassName("distanceHidden")[0].value = data.distance;
+    
+}
 
 // AJAX Call to the requrested data.json file
 function CarApiCall(CallbackFunc, data = ""){
