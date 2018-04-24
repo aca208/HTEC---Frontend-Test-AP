@@ -25,3 +25,10 @@ function CarApiCall(){
     }
     xhttp.send(null);
 }
+
+// Clear local storage onunload
+function ClearStorage(){
+
+    localStorage.clear();
+    
+}

@@ -8,7 +8,7 @@
         <!-- Link to external Javascript file -->
         <script src="Scripts/Script.js"></script>
     </head>
-    <body onload= "CarApiCall(); CreateCarElements(localStorage.getItem('carApiData'));">
+    <body onload= "CarApiCall(); CreateCarElements(localStorage.getItem('carApiData'));" onunload="ClearStorage();">
         <div id = "container">
             <!-- Showing all cars -->
             <div id = "carContainer">
