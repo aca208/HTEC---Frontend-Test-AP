@@ -106,7 +106,7 @@ function DrawScale(){
     var rectWidth = 750;
     var rectHeight = 210;
     var rectX = 0;
-    var rectY = 0;
+    var rectY = 40;
     var cornerRadius = 10;
 
     // Drawing scale of distance
@@ -124,7 +124,22 @@ function DrawScale(){
     canvContx.stroke();
     canvContx.closePath();
 
-    //Next
+    //Drawing horizontal lines
+    for(var i=1; i<=2; i++){
+        canvContx.fillRect(rectX,rectY + i*70,rectWidth,1); 
+    }
+
+    for(var i=1; i <= 10; i++){
+        canvContx.fillRect(rectX + i*75, rectY, 1, rectHeight);
+    }
+
+    canvContx.textBaseline = "middle";
+    canvContx.textAlign = "center";
+    canvContx.font = "20px Arial";
+
+    for(var i=1; i<=9; i++){
+        canvContx.fillText( i + "xN", i*(rectWidth/10) ,rectY - 20);
+    }
     
 }
 
