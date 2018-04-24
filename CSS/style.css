@@ -220,8 +220,14 @@
     position:relative;
     margin-top:50px;
     width:750px;
-    min-height:210px;
+    height:500px;
     overflow:hidden;
+}
+
+#canvasScale{
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 
