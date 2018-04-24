@@ -6,12 +6,12 @@
         <!-- Link to external Javascript file -->
         <script type="text/javascript" src="Scripts/Script.js"></script>
     </head>
-    <body onload= "CarApiCall(CreateCarElements); CarApiCall(FlipCars); DrawScale();">
+    <body onload= "CarApiCall(); CreateCarElements(localStorage.getItem('carApiData')); FlipCars(localStorage.getItem('carApiData')); DrawScale();" onunload="">
         <main id = "container">
             <!-- Search cars -->
             <section id="search">
                 <input type="textbox" id="searchTb" placeholder="Search cars here"/>
-                <input type="button" id="searchBtn" onclick="CarApiCall(FilterCars, document.getElementById('searchTb').value)"/>
+                <input type="button" id="searchBtn" onclick="FilterCars(localStorage.getItem('carApiData'), document.getElementById('searchTb').value)"/>
             </section>
             <!-- Showing all cars -->
             <section id = "carContainer">
@@ -21,6 +21,6 @@
                 <input type="hidden" class="distanceHidden" value="5" />
                 <canvas id="canvasScale" width="750px" height="500px"></canvas>
             </section>
-        </div>
-    </main>
+        </main>
+    </body>
 </html>
