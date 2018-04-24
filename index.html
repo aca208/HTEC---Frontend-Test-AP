@@ -13,7 +13,7 @@
             <!-- Search cars -->
             <div id="search">
                 <input type="textbox" id="searchTb" placeholder="Search cars here"/>
-                <input type="button" id="searchBtn" onclick="CarApiCall(FilterCars, document.getElementById('searchTb').value)"/>
+                <input type="button" id="searchBtn" onclick="FilterCars(localStorage.getItem('carApiData'), document.getElementById('searchTb').value)"/>
             </div>
             <!-- Showing all cars -->
             <div id = "carContainer">

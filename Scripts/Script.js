@@ -13,7 +13,9 @@ function CreateCarElements(carData){
 }
 
 // Filtering cars using search
-function FilterCars(data, name){
+function FilterCars(carData, name){
+
+    var data = JSON.parse(carData);
 
     // Clearing out containers
     for(j in document.getElementsByClassName("car")){
