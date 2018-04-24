@@ -133,17 +133,16 @@ function DrawScale(){
         canvContx.fillRect(rectX + i*75, rectY, 1, rectHeight);
     }
 
-    canvContx.textBaseline = "middle";
-    canvContx.textAlign = "center";
-    canvContx.font = "20px Arial";
-
     setTimeout(
         (function(){
             for(var i=1; i<=9; i++){
-                canvContx.fillText( i + "x" + (document.getElementsByClassName("distanceHidden")[0].value /10), i*(rectWidth/10) ,rectY - 20); // To do: add distance to this shit
+                canvContx.textBaseline = "middle";
+                canvContx.textAlign = "center";
+                canvContx.font = "20px Arial";
+                canvContx.fillText( i + "x" + (document.getElementsByClassName("distanceHidden")[0].value /10), i*(rectWidth/10) ,rectY - 20); 
             }
         }),
-    15);
+    20);
     
     CarApiCall(DrawingSpeedLimit, [canvContx, rectX, rectY, rectWidth, rectHeight]);
 
@@ -160,12 +159,31 @@ function DrawingSpeedLimit(data, context){
     var lineLength = 100;
 
     for(i in data.speed_limits){
+        
+        // Drawing dashed lines on its distance
         context[0].beginPath();
+        context[0].lineWidth = 4;
+        context[0].strokeStyle="#777";
         context[0].setLineDash([40, 10]);
         context[0].moveTo(rectX + ( (750 * data.speed_limits[i].position) / data.distance), rectY);
-        context[0].lineTo(rectX + ( (750 * data.speed_limits[i].position) / data.distance), rectY + rectHeight +50);
+        context[0].lineTo(rectX + ( (750 * data.speed_limits[i].position) / data.distance), rectY + rectHeight +40);
         context[0].stroke();
         context[0].closePath();
+
+        // Drawing sign for speed limit
+        context[0].beginPath();
+        context[0].setLineDash([0]);
+        context[0].lineWidth = 10;
+        context[0].arc(rectX + ( (750 * data.speed_limits[i].position) / data.distance), rectY + rectHeight +80, 40,0,2*Math.PI);
+        context[0].stroke();
+        context[0].closePath();
+        context[0].textBaseline = "middle";
+        context[0].textAlign = "center";
+        context[0].font = "40px Arial";
+        context[0].fillText(data.speed_limits[i].speed, rectX + ( (750 * data.speed_limits[i].position) / data.distance), rectY + rectHeight +80);
+        context[0].stroke();
+        context[0].closePath();
+                
     }
 }
 
