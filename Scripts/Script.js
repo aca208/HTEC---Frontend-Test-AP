@@ -112,10 +112,10 @@ function DrawScale(){
     // Drawing scale of distance
     canvContx.beginPath();
     canvContx.moveTo(rectX + cornerRadius, rectY);
-    canvContx.lineTo(rectX + (rectWidth - 2 * cornerRadius) + cornerRadius, rectY);
-    canvContx.arcTo(rectWidth, rectY,  rectY + rectWidth, rectY + cornerRadius, cornerRadius );
-    canvContx.lineTo(rectX + rectWidth, rectY + rectHeight - cornerRadius);
-    canvContx.arcTo(rectWidth, rectY + rectHeight, rectY + rectWidth - cornerRadius, rectY + rectHeight, cornerRadius );
+    canvContx.lineTo(rectX + rectWidth - (2 * cornerRadius), rectY);
+    canvContx.arcTo(rectX + rectWidth, rectY,  rectX + rectWidth, rectY + cornerRadius, cornerRadius );
+    canvContx.lineTo(rectX + rectWidth, (rectY + rectHeight) - cornerRadius);
+    canvContx.arcTo(rectX + rectWidth, rectY + rectHeight, (rectX + rectWidth) - cornerRadius, rectY + rectHeight, cornerRadius );
     canvContx.lineTo(rectX + cornerRadius, rectY + rectHeight);
     canvContx.arcTo(rectX, rectY + rectHeight,  rectX, rectY + rectHeight - cornerRadius, cornerRadius );
     canvContx.lineTo(rectX, rectY + cornerRadius);
