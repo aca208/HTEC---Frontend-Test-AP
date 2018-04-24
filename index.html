@@ -8,7 +8,7 @@
         <!-- Link to external Javascript file -->
         <script src="Scripts/Script.js"></script>
     </head>
-    <body onload= "CarApiCall(CreateCarElements)">
+    <body onload= "CarApiCall(); CreateCarElements(localStorage.getItem('carApiData'));">
         <div id = "container">
             <!-- Search cars -->
             <div id="search">
