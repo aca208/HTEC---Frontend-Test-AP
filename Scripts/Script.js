@@ -100,7 +100,8 @@ function SelectCar(node){
 //Drawing Scale
 function DrawScale(){
     
-    CarApiCall(SetDistance);
+    SetDistance(localStorage.getItem("carApiData"));
+
     var canv = document.getElementById("canvasScale");
     var canvContx = canv.getContext("2d");
     canvContx.fillStyle = "#000000";
@@ -140,17 +141,15 @@ function DrawScale(){
     canvContx.textAlign = "center";
     canvContx.font = "20px Arial";
 
-    setTimeout(
-        (function(){
-            for(var i=1; i<=9; i++){
-                canvContx.fillText( i + "x" + (document.getElementsByClassName("distanceHidden")[0].value /10), i*(rectWidth/10) ,rectY - 20); // To do: add distance to this shit
-            }
-        }),
-    15);
+    for(var i=1; i<=9; i++){
+        canvContx.fillText( i + "x" + (document.getElementsByClassName("distanceHidden")[0].value /10), i*(rectWidth/10) ,rectY - 20);
+    }
 }
 
-function SetDistance(data){
+function SetDistance(carData){
     
+    var data = JSON.parse(carData);
+
     document.getElementsByClassName("distanceHidden")[0].value = data.distance;
     
 }
