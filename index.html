@@ -30,8 +30,10 @@
                 <canvas id="canvasScale" width="750px" height="400px"></canvas>
                 
                 <section id="start">
-                    <input type="textbox" id="startTb" placeholder="Animation speed"/>
-                    <input type="button" id="startBtn" value="Start" onclick=""/>
+                    <form name="startForm" method="POST" onsubmit="event.preventDefault(); OnStart();">
+                        <input type="textbox" id="startTb" placeholder="Animation speed" onkeydown="OnStartValidation(event, this.value);"/>
+                        <input type="submit" id="startBtn" value="Start">
+                    </form>
                 </section>
             </section>
         </main>

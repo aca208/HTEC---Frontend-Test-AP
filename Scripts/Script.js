@@ -393,6 +393,38 @@ function SetCarLocation(context){
 
 }
 
+// Start button
+function OnStart(e){
+
+    if(document.getElementById("startTb").value != ""){
+
+        document.getElementById("startTb").style.removeProperty("border-color");
+        
+    } else{
+
+        alert("Please enter animation speed.");
+        document.getElementById("startTb").style.setProperty("border-color","#FF0000");
+
+    }
+
+}
+
+// Start textbox numerical validation
+function OnStartValidation(e, value){
+
+    var charCode = (e.which) ? e.which : e.keyCode;
+
+    if (charCode == 8 || charCode == 46
+        || charCode == 37 || charCode == 39) {
+           return true;
+    }
+    else if ( charCode < 48 || charCode > 57 ) {
+        e.preventDefault();
+    }
+    else return true;
+
+}
+
 // Animate Traffic Lights
 function AnimateTrafficLight(carData, i){
 
@@ -411,6 +443,7 @@ function AnimateTrafficLight(carData, i){
 
 }
 
+// Setting hidden distance value
 function SetDistance(carData){
     
     var data = JSON.parse(carData);
