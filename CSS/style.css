@@ -281,6 +281,7 @@
 
 #carTwo{
     position: absolute;
+    background-color: #fff;
     display:none;
     width:60px;
     height:60px;
@@ -296,6 +297,7 @@
 
 #carThree{
     position: absolute;
+    background-color: #fff;
     display:none;
     width:60px;
     height:60px;
@@ -343,11 +345,11 @@
     display: none;
 }
 
-.active p{
+.finished p{
     font-size:10px;
 }
 
-#place1.active{
+#place1.finished{
     display: block !important;
     text-align: center;
     padding: 5px;
@@ -364,7 +366,7 @@
     display: none;
 }
 
-#place2.active{
+#place2.finished{
     display: block !important;
     text-align: center;
     padding: 5px;
@@ -381,7 +383,7 @@
     display: none;
 }
 
-#place3.active{
+#place3.finished{
     display: block !important;
     text-align: center;
     padding: 5px;

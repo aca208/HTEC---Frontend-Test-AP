@@ -1,3 +1,7 @@
+var car1;
+var car2;
+var car3;
+
 // Filling elements of car container with id, name and image
 function CreateCarElements(carData){
 
@@ -202,6 +206,12 @@ function SelectCar(node){
         document.getElementsByClassName("activeCar")[i].style.setProperty("left","7.5px");
 
     }
+
+    if(car1!= null || car2 != null || car3 != null){
+        clearInterval(car1);
+        clearInterval(car2);
+        clearInterval(car3);
+    }
 }
 
 //Drawing Scale
@@ -400,15 +410,40 @@ function SetCarLocation(context){
 
 }
 
-// Start button
+// Start button --> Starts race between cars
 function OnStart(e){
 
     if(document.getElementById("startTb").value != ""){
 
+        // Reset animations
+        if(car1!= null || car2 != null || car3 != null){
+            clearInterval(car1);
+            clearInterval(car2);
+            clearInterval(car3);
+            
+            var oneChilds = document.querySelectorAll("#carOne .finished");
+            var twoChilds = document.querySelectorAll("#carTwo .finished");
+            var threeChilds = document.querySelectorAll("#carThree .finished");
+
+            oneChilds.forEach(function(element) {
+                document.getElementById("carOne").removeChild(element);
+            });
+
+            twoChilds.forEach(function(element) {
+                document.getElementById("carTwo").removeChild(element);
+            });
+
+            threeChilds.forEach(function(element) {
+                document.getElementById("carThree").removeChild(element);
+            });
+        }
+
         document.getElementById("startTb").style.removeProperty("border-color");
+        var animSpeed = document.getElementById("startTb").value;
         var activeCars = document.getElementsByClassName("activeCar");
         var activeCars_id = document.querySelectorAll(".activeCar input[type='hidden']");
 
+        // Check if there are any selected cars
         if(activeCars.length > 0){
 
             var cars= [];
@@ -422,31 +457,68 @@ function OnStart(e){
                         cars[i] = { "id": i,"speed": carData.cars[j].speed} ;
                     }
                 }
-            } 
-
-            cars.sort(function(a, b) {
-                return a.speed < b.speed;
-            });
-
-            cars.sort();
-
-            for(var i = 0; i < cars.length; i++){
-                activeCars[cars[i].id].innerHTML += "<div id='place"+ (i + 1) + "' class= 'active'><p>" + (i == 0 ? "I": i == 1? "II" : "III") + "</p></div>"
-            } 
-
-            for(var i = 0; i < activeCars.length; i++){
-                activeCars[i].style.setProperty("left", (750 - 60 - 7.5) + "px" );
             }
-        } 
-        else return;  
-        
-    } else{
 
-        alert("Please enter animation speed.");
-        document.getElementById("startTb").style.setProperty("border-color","#FF0000");
+            var finishLine = 682.5;
 
+            // Animation for first car
+            car1 = setInterval(frame1, 10, cars[0].speed, 0);
+            var car1Pos = 7.5;
+
+            function frame1(speed, position) {
+
+                if(car1Pos >= finishLine){
+                    var finishPosition = document.querySelectorAll(".finished").length;
+                    activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
+                    clearInterval(car1);
+                }else{
+                    var kms = speed * 0.000278;
+                    var movePos = ((kms * (750 / carData.distance)) / 100) * animSpeed;
+
+                    car1Pos+= movePos;
+                    activeCars[position].style.setProperty("left", car1Pos);
+                }
+            }
+
+            // Animation for second car
+            car2 = cars[1] != null ? setInterval(frame2, 10, cars[1].speed, 1) : null;
+            var car2Pos = 7.5;
+
+            function frame2(speed, position) {
+
+                if(car2Pos >= finishLine){
+                    var finishPosition = document.querySelectorAll(".finished").length;
+                    activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
+                    clearInterval(car2);
+                }else{
+                    var kms = speed * 0.000278;
+                    var movePos = ((kms * (750 / carData.distance)) / 100) * animSpeed;
+
+                    car2Pos+= movePos;
+                    activeCars[position].style.setProperty("left", car2Pos);
+                }
+            }
+
+            // Animation for third car
+            car3 = cars[2] != null ? setInterval(frame3, 10, cars[2].speed, 2) : null;
+            var car3Pos = 7.5;
+
+            function frame3(speed, position) {
+
+                if(car3Pos >= finishLine){
+                    var finishPosition = document.querySelectorAll(".finished").length;
+                    activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
+                    clearInterval(car3);
+                }else{
+                    var kms = speed * 0.000278;
+                    var movePos = ((kms * (750 / carData.distance)) / 100) * animSpeed;
+
+                    car3Pos+= movePos;
+                    activeCars[position].style.setProperty("left", car3Pos);
+                }
+            }
+        }  
     }
-
 }
 
 // Start textbox numerical validation
