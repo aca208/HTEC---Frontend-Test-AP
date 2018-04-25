@@ -313,6 +313,29 @@
     display: block !important;
 }
 
+/* Start button */
+#start{
+    position: absolute;
+    right:0px;
+    bottom: 20px;
+    margin: 15px;
+}
+
+#startBtn{
+    border-radius: 5px;
+    height:30px;
+    width:80px;
+    padding:2px;
+    font-size: 20px;
+}
+
+#startTb{
+    border-radius: 5px;
+    height:30px;
+    width:120px;
+    font-size: 15px;
+    padding:2px;
+}
 
 
 /* End */
