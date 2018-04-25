@@ -6,7 +6,7 @@
         <!-- Link to external Javascript file -->
         <script type="text/javascript" src="Scripts/Script.js"></script>
     </head>
-    <body onload= "CarApiCall(); CreateCarElements(localStorage.getItem('carApiData')); FlipCars(localStorage.getItem('carApiData')); DrawScale();" onunload="">
+    <body onload= "CarApiCall(); CreateCarElements(localStorage.getItem('carApiData')); FlipCars(localStorage.getItem('carApiData')); DrawScale();">
         <main id = "container">
             <!-- Search cars -->
             <section id="search">
@@ -19,6 +19,8 @@
             </section>
             <section id="distanceScale">
                 <input type="hidden" class="distanceHidden" value="" />
+                <div id="redLight" class="currentLight"></div>
+                <div id="greenLight" class = ""></div>
                 <canvas id="canvasScale" width="750px" height="500px"></canvas>
             </section>
         </main>

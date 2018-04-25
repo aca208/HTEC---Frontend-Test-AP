@@ -147,6 +147,8 @@ function DrawScale(){
 
     DrawingSpeedLimit(localStorage.getItem("carApiData"), [canvContx, rectX, rectY, rectWidth, rectHeight]);
 
+    DrawingTrafficLight(localStorage.getItem("carApiData"), [canvContx, rectX, rectY, rectWidth, rectHeight]);
+
 }
 
 
@@ -159,7 +161,6 @@ function DrawingSpeedLimit(carData, context){
     var rectHeight = context[4];
     var rectX = context[1];
     var rectY = context[2];
-    var lineLength = 100;
 
     for(i in data.speed_limits){
         
@@ -188,6 +189,90 @@ function DrawingSpeedLimit(carData, context){
         context[0].closePath();
                 
     }
+}
+
+// Drawing Traffic Lights
+function DrawingTrafficLight(carData, context){
+
+    var data = JSON.parse(carData);
+
+    var rectWidth = context[3];
+    var rectHeight = context[4];
+    var rectX = context[1];
+    var rectY = context[2];
+
+    
+    var tlRectWidth = 50;
+    var tlRectHeight = 100;
+    var tlCornRad = 10;
+
+    for(var i = 0; i < data.speed_limits.length; i++){
+
+        var tlRectX = (rectX + ( (rectWidth * data.traffic_lights[i].position) / data.distance)) - (tlRectWidth /2);
+        var tlRectY = rectY + rectHeight +40;
+
+        // Drawing dashing lines
+        context[0].beginPath();
+        context[0].lineWidth = 4;
+        context[0].strokeStyle="#000";
+        context[0].setLineDash([40, 10]);
+        context[0].moveTo(rectX + ( (rectWidth * data.traffic_lights[i].position) / data.distance), rectY);
+        context[0].lineTo(rectX + ( (rectWidth * data.traffic_lights[i].position) / data.distance), rectY + rectHeight +40);
+        context[0].stroke();
+        context[0].closePath();
+
+        // Drawing traffic light
+        context[0].beginPath();
+        context[0].setLineDash([0]);
+        context[0].moveTo( tlRectX + tlCornRad, tlRectY);
+        context[0].lineTo(tlRectX + tlRectWidth - tlCornRad, tlRectY);
+        context[0].arcTo(tlRectX + tlRectWidth, tlRectY,  tlRectX + tlRectWidth, tlRectY + tlCornRad, tlCornRad );
+        context[0].lineTo(tlRectX + tlRectWidth, (tlRectY + tlRectHeight) - tlCornRad);
+        context[0].arcTo(tlRectX + tlRectWidth, tlRectY + tlRectHeight, (tlRectX + tlRectWidth) - tlCornRad, tlRectY + tlRectHeight, tlCornRad );
+        context[0].lineTo(tlRectX + tlCornRad, tlRectY + tlRectHeight);
+        context[0].arcTo(tlRectX, tlRectY + tlRectHeight,  tlRectX, tlRectY + tlRectHeight - tlCornRad, tlCornRad );
+        context[0].lineTo(tlRectX, tlRectY + tlCornRad);
+        context[0].arcTo(tlRectX, tlRectY,  tlRectX + tlCornRad, tlRectY, tlCornRad );
+        context[0].lineWidth = 1;
+        context[0].stroke();
+        context[0].closePath();
+        // Red Light
+        context[0].beginPath();
+        context[0].fillStyle = "#990000";
+        context[0].arc(tlRectX + (tlRectWidth/2) , tlRectY + (tlRectHeight/4), 15, 0, 2*Math.PI);
+        context[0].fill();
+        context[0].closePath();
+        document.getElementById("redLight").style.setProperty("left", (tlRectX + (tlRectWidth/2) ) - 15);
+        document.getElementById("redLight").style.setProperty("top", tlRectY + (tlRectHeight/4) - 15);
+        // Green Light
+        context[0].beginPath();
+        context[0].fillStyle = "#009900";
+        context[0].arc(tlRectX + (tlRectWidth/2) , tlRectY + (3 * (tlRectHeight/4)), 15, 0, 2*Math.PI);
+        context[0].fill();
+        context[0].closePath();
+        document.getElementById("greenLight").style.setProperty("left", tlRectX + (tlRectWidth/2) - 15);
+        document.getElementById("greenLight").style.setProperty("top", tlRectY + (3 * (tlRectHeight/4)) - 15);
+        AnimateTrafficLight(localStorage.getItem("carApiData"), i);
+    }
+
+}
+
+// Animate Traffic Lights
+function AnimateTrafficLight(carData, i){
+
+    var data = JSON.parse(carData);
+
+    var greenLight = document.getElementById("greenLight");
+    var redLight = document.getElementById("redLight");
+
+    var id = setInterval(frame, data.traffic_lights[i].duration);
+
+    // Toggling the class each by x time, defaulted to start with red light
+    function frame() {
+        greenLight.classList.toggle("currentLight");
+        redLight.classList.toggle("currentLight");
+    }
+
 }
 
 function SetDistance(carData){

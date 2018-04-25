@@ -213,7 +213,6 @@
 
 /* End search filter */
 
-
 /* Scale */
 #distanceScale{
     box-sizing: border-box;
@@ -230,6 +229,37 @@
     left: 0px;
 }
 
+/* Traffic Light */
+
+#redLight{
+    position: absolute;
+    left: -999999;
+}
+
+#greenLight{
+    left: -999999;
+    position: absolute;
+}
+
+#redLight.currentLight{
+    position: absolute;
+    left:0;
+    z-index: 3;
+    width:30px;
+    height: 30px;
+    background-color: #FF0000;
+    border-radius: 50%;
+}
+
+#greenLight.currentLight{
+    position: absolute;
+    left:0;
+    z-index: 3;
+    width:30px;
+    height: 30px;
+    background-color: #00FF00;
+    border-radius: 50%;
+}
 
 /* End */
 .hidden{
