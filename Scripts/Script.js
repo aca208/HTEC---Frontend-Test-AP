@@ -96,6 +96,7 @@ function SelectCar(node){
         node.classList.remove("selected");
     }
 
+    // Deselecting cars in the scale
     if(!document.querySelectorAll(".selected")[0]){
 
         document.getElementById("carOne").innerHTML = "";
@@ -116,7 +117,10 @@ function SelectCar(node){
 
     }
 
+    // Selecting cars based on thier current position above
     for(var i = 0; i<document.getElementsByClassName("selected").length; i++){
+
+        // Selecting first car
         if(i == 0){
 
             var car_id = document.querySelectorAll(".selected .carID")[0].value;
@@ -131,7 +135,7 @@ function SelectCar(node){
             var data = JSON.parse(localStorage.getItem("carApiData"));
 
 
-                carImage: for(var j = 0; j < data.cars.length; j++){
+            carImage: for(var j = 0; j < data.cars.length; j++){
                 if(data.cars[j].id == car_id){
                     car_pic = data.cars[j].image;
                     break carImage;
@@ -141,6 +145,7 @@ function SelectCar(node){
             document.getElementById("carOne").innerHTML="<input type='hidden' id='firstCarData' value ='" + car_id + "' /> <img src='" + car_pic + "' alt='first car'/> ";
 
         }
+        // Selecting second car
         if(i == 1){
             var car_id = document.querySelectorAll(".selected .carID")[1].value;
 
@@ -154,7 +159,7 @@ function SelectCar(node){
             var data = JSON.parse(localStorage.getItem("carApiData"));
 
 
-                carImage: for(var j = 0; j < data.cars.length; j++){
+            carImage: for(var j = 0; j < data.cars.length; j++){
                 if(data.cars[j].id == car_id){
                     car_pic = data.cars[j].image;
                     break carImage;
@@ -163,6 +168,7 @@ function SelectCar(node){
 
             document.getElementById("carTwo").innerHTML="<input type='hidden' id='secondCarData' value ='" + car_id + "' /> <img src='" + car_pic + "' alt='first car'/> ";
         }
+        // Selecting thrid car
         if(i == 2){
 
             var car_id = document.querySelectorAll(".selected .carID")[2].value;
@@ -177,7 +183,7 @@ function SelectCar(node){
             var data = JSON.parse(localStorage.getItem("carApiData"));
 
 
-                carImage: for(var j = 0; j < data.cars.length; j++){
+            carImage: for(var j = 0; j < data.cars.length; j++){
                 if(data.cars[j].id == car_id){
                     car_pic = data.cars[j].image;
                     break carImage;
