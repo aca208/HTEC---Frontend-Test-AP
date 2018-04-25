@@ -95,6 +95,135 @@ function SelectCar(node){
     }else{
         node.classList.remove("selected");
     }
+
+    // Showing cars on scale
+    if(document.getElementsByClassName("selected").length > 0 ){
+
+        // Check if first div is emtpy and use it
+        if(document.getElementById("carOne").innerHTML == "" && document.querySelectorAll(".selected .carID")[0] != null){
+
+            var car_id = document.querySelectorAll(".selected .carID")[0].value;
+
+
+            if(!document.querySelector("#carOne").classList.contains("activeCar")){
+
+                document.querySelector("#carOne").classList.add("activeCar");
+
+            }
+
+            var car_pic = "";
+            var data = JSON.parse(localStorage.getItem("carApiData"));
+
+
+                carImage: for(var j = 0; j < data.cars.length; j++){
+                if(data.cars[j].id == car_id){
+                    car_pic = data.cars[j].image;
+                    break carImage;
+                }
+            }
+
+            document.getElementById("carOne").innerHTML="<input type='hidden' id='firstCarData' value ='" + car_id + "' /> <img src='" + car_pic + "' alt='first car'/> ";
+
+        }else if(document.querySelectorAll(".selected .carID")[0].value != document.querySelector("#carOne #firstCarData").value){
+            if(document.querySelector("#carOne").classList.contains("activeCar")){
+                document.getElementById("carOne").innerHTML = "";
+                document.querySelector("#carOne").classList.remove("activeCar");
+
+            }
+        }
+
+        // Check if second div is emtpy and use it 
+            
+        if(document.getElementById("carTwo").innerHTML == "" && document.querySelectorAll(".selected .carID")[1] != null){
+
+            var car_id = document.querySelectorAll(".selected .carID")[1].value;
+
+            if(!document.querySelector("#carTwo").classList.contains("activeCar")){
+
+                document.querySelector("#carTwo").classList.add("activeCar");
+                
+            }
+
+            var car_pic = "";
+            var data = JSON.parse(localStorage.getItem("carApiData"));
+
+
+                carImage: for(var j = 0; j < data.cars.length; j++){
+                if(data.cars[j].id == car_id){
+                    car_pic = data.cars[j].image;
+                    break carImage;
+                }
+            }
+
+            document.getElementById("carTwo").innerHTML="<input type='hidden' id='secondCarData' value ='" + car_id + "' /> <img src='" + car_pic + "' alt='first car'/> ";
+
+        }
+        else if(document.querySelectorAll(".selected .carID")[1]){
+            if(document.querySelectorAll(".selected .carID")[1].value != document.querySelector("#carTwo #secondCarData").value){
+                if(document.querySelector("#carTwo").classList.contains("activeCar")){
+
+                    document.getElementById("carTwo").innerHTML = "";
+                    document.querySelector("#carTwo").classList.remove("activeCar");
+
+                }
+            }
+        }
+        else{
+            document.getElementById("carTwo").innerHTML = "";
+            document.querySelector("#carTwo").classList.remove("activeCar");
+        }
+
+        // Check if third div is emtpy and use it 
+        if(document.getElementById("carThree").innerHTML == "" && document.querySelectorAll(".selected .carID")[2] != null){
+
+            var car_id = document.querySelectorAll(".selected .carID")[2].value;
+
+            if(!document.querySelector("#carThree").classList.contains("activeCar")){
+
+                document.querySelector("#carThree").classList.add("activeCar");
+                
+            }
+
+            var car_pic = "";
+            var data = JSON.parse(localStorage.getItem("carApiData"));
+
+
+                carImage: for(var j = 0; j < data.cars.length; j++){
+                if(data.cars[j].id == car_id){
+                    car_pic = data.cars[j].image;
+                    break carImage;
+                }
+            }
+
+            document.getElementById("carThree").innerHTML="<input type='hidden' id='thirdCarData' value ='" + car_id + "' /> <img src='" + car_pic + "' alt='first car'/> ";
+       } 
+       else if(document.querySelectorAll(".selected .carID")[2]){
+            if(document.querySelectorAll(".selected .carID")[2].value != document.querySelector("#carThree #thirdCarData").value){
+                if(document.querySelector("#carThree").classList.contains("activeCar")){
+
+                    document.getElementById("carThree").innerHTML = "";
+                    document.querySelector("#carThree").classList.remove("activeCar");
+
+                }
+            } 
+        }
+        else{
+            document.getElementById("carThree").innerHTML = "";
+            document.querySelector("#carThree").classList.remove("activeCar");
+        }
+    }
+    else{
+        // Clear out selected cars
+        document.getElementById("carOne").innerHTML = "";
+        document.getElementById("carOne").classList.remove("activeCar");
+
+        document.getElementById("carTwo").innerHTML = "";
+        document.getElementById("carTwo").classList.remove("activeCar");
+
+        document.getElementById("carThree").innerHTML = "";
+        document.getElementById("carThree").classList.remove("activeCar");
+    }
+
 }
 
 //Drawing Scale
@@ -148,6 +277,8 @@ function DrawScale(){
     DrawingSpeedLimit(localStorage.getItem("carApiData"), [canvContx, rectX, rectY, rectWidth, rectHeight]);
 
     DrawingTrafficLight(localStorage.getItem("carApiData"), [canvContx, rectX, rectY, rectWidth, rectHeight]);
+    
+    SetCarLocation([canvContx, rectX, rectY, rectWidth, rectHeight]);
 
 }
 
@@ -200,13 +331,12 @@ function DrawingTrafficLight(carData, context){
     var rectHeight = context[4];
     var rectX = context[1];
     var rectY = context[2];
-
     
     var tlRectWidth = 50;
     var tlRectHeight = 100;
     var tlCornRad = 10;
 
-    for(var i = 0; i < data.speed_limits.length; i++){
+    for(var i = 0; i < data.speed_limits.length - 1; i++){
 
         var tlRectX = (rectX + ( (rectWidth * data.traffic_lights[i].position) / data.distance)) - (tlRectWidth /2);
         var tlRectY = rectY + rectHeight +40;
@@ -252,8 +382,43 @@ function DrawingTrafficLight(carData, context){
         context[0].closePath();
         document.getElementById("greenLight").style.setProperty("left", tlRectX + (tlRectWidth/2) - 15);
         document.getElementById("greenLight").style.setProperty("top", tlRectY + (3 * (tlRectHeight/4)) - 15);
+
         AnimateTrafficLight(localStorage.getItem("carApiData"), i);
     }
+
+}
+
+// Set three car divs on the starting line
+function SetCarLocation(context){
+
+    var rectWidth = context[3];
+    var rectHeight = context[4];
+    var rectX = context[1];
+    var rectY = context[2];
+
+    var carOne = document.getElementById("carOne");
+    var carTwo = document.getElementById("carTwo");
+    var carThree = document.getElementById("carThree");
+
+    // Getting width and height from css
+    var carOneW = window.getComputedStyle(carOne).getPropertyValue("width").replace("px", "");
+    var carOneH = window.getComputedStyle(carOne).getPropertyValue("height").replace("px", "");
+    
+    var carTwoW = window.getComputedStyle(carTwo).getPropertyValue("width").replace("px", "");
+    var carTwoH = window.getComputedStyle(carTwo).getPropertyValue("height").replace("px", "");
+    
+    var carThreeW = window.getComputedStyle(carThree).getPropertyValue("width").replace("px", "");
+    var carThreeH = window.getComputedStyle(carThree).getPropertyValue("height").replace("px", "");
+
+    // Setting correct positioning
+    carOne.style.setProperty("left", (rectX + (rectWidth/10 - carOneW) /2) + "px");
+    carOne.style.setProperty("top", (rectY + ((rectHeight/3) - carOneH) /2) + "px");
+
+    carTwo.style.setProperty("left", (rectX + (rectWidth/10 - carTwoW) /2) + "px");
+    carTwo.style.setProperty("top", (rectY + (rectHeight/3) + ((rectHeight/3) - carTwoH) /2) + "px");
+
+    carThree.style.setProperty("left", (rectX + (rectWidth/10 - carThreeW) /2) + "px");
+    carThree.style.setProperty("top", (rectY + 2*(rectHeight/3) + ((rectHeight/3) - carThreeH) /2) + "px");
 
 }
 

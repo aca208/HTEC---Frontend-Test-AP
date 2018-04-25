@@ -261,6 +261,60 @@
     border-radius: 50%;
 }
 
+/* Start line cars */
+
+#carOne{
+    position: absolute;
+    background-color: #fff;
+    display:none;
+    width:60px;
+    height:60px;
+    z-index: 1;
+    border:1px solid #000;
+    border-radius: 10px;
+}
+
+#carOne img{
+    width:100%;
+    height:100%;
+}
+
+#carTwo{
+    position: absolute;
+    display:none;
+    width:60px;
+    height:60px;
+    z-index: 1;
+    border:1px solid #000;
+    border-radius: 10px;
+}
+
+#carTwo img{
+    width:100%;
+    height:100%;
+}
+
+#carThree{
+    position: absolute;
+    display:none;
+    width:60px;
+    height:60px;
+    z-index: 1;
+    border:1px solid #000;
+    border-radius: 10px;
+}
+
+#carThree img{
+    width:100%;
+    height:100%;
+}
+
+.activeCar{
+    display: block !important;
+}
+
+
+
 /* End */
 .hidden{
     display:none;
