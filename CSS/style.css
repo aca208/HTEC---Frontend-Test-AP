@@ -337,9 +337,61 @@
     padding:2px;
 }
 
+/* Places */
 
-/* End */
-.hidden{
-    display:none;
+#place1{
+    display: none;
 }
 
+.active p{
+    font-size:10px;
+}
+
+#place1.active{
+    display: block !important;
+    text-align: center;
+    padding: 5px;
+    top: 5px;
+    left: 5px;
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    z-index: 4;
+    background-color: #FFD700;
+}
+
+#place2{
+    display: none;
+}
+
+#place2.active{
+    display: block !important;
+    text-align: center;
+    padding: 5px;
+    top: 5px;
+    left: 5px;
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    z-index: 4;
+    background-color: #C0C0C0;
+}
+
+#place3{
+    display: none;
+}
+
+#place3.active{
+    display: block !important;
+    text-align: center;
+    padding: 5px;
+    top: 5px;
+    left: 5px;
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    z-index: 4;
+    background-color: #CD7F32;
+}
+
+/* End */

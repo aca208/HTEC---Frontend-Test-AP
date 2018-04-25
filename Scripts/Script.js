@@ -168,7 +168,7 @@ function SelectCar(node){
 
             document.getElementById("carTwo").innerHTML="<input type='hidden' id='secondCarData' value ='" + car_id + "' /> <img src='" + car_pic + "' alt='first car'/> ";
         }
-        // Selecting thrid car
+        // Selecting third car
         if(i == 2){
 
             var car_id = document.querySelectorAll(".selected .carID")[2].value;
@@ -194,6 +194,13 @@ function SelectCar(node){
 
 
         }
+    }
+
+    // Reset car location on selection
+    for(var i = 0 ; i < document.getElementsByClassName("activeCar").length; i++){
+
+        document.getElementsByClassName("activeCar")[i].style.setProperty("left","7.5px");
+
     }
 }
 
@@ -399,6 +406,39 @@ function OnStart(e){
     if(document.getElementById("startTb").value != ""){
 
         document.getElementById("startTb").style.removeProperty("border-color");
+        var activeCars = document.getElementsByClassName("activeCar");
+        var activeCars_id = document.querySelectorAll(".activeCar input[type='hidden']");
+
+        if(activeCars.length > 0){
+
+            var cars= [];
+
+            var carData = JSON.parse(localStorage.getItem("carApiData"));
+
+            for(var i = 0; i < activeCars.length; i++){
+                
+                for(var j = 0; j < carData.cars.length; j++){
+                    if(carData.cars[j].id == activeCars_id[i].value){
+                        cars[i] = { "id": i,"speed": carData.cars[j].speed} ;
+                    }
+                }
+            } 
+
+            cars.sort(function(a, b) {
+                return a.speed < b.speed;
+            });
+
+            cars.sort();
+
+            for(var i = 0; i < cars.length; i++){
+                activeCars[cars[i].id].innerHTML += "<div id='place"+ (i + 1) + "' class= 'active'><p>" + (i == 0 ? "I": i == 1? "II" : "III") + "</p></div>"
+            } 
+
+            for(var i = 0; i < activeCars.length; i++){
+                activeCars[i].style.setProperty("left", (750 - 60 - 7.5) + "px" );
+            }
+        } 
+        else return;  
         
     } else{
 
