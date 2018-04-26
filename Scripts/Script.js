@@ -439,7 +439,7 @@ function OnStart(e){
         }
 
         document.getElementById("startTb").style.removeProperty("border-color");
-        var animSpeed = document.getElementById("startTb").value;
+        var animSpeed = document.getElementById("startTb").value <= 500 ? document.getElementById("startTb").value : 500;
         var activeCars = document.getElementsByClassName("activeCar");
         var activeCars_id = document.querySelectorAll(".activeCar input[type='hidden']");
 
@@ -474,9 +474,13 @@ function OnStart(e){
             function frame1(speed, position) {
 
                 if(car1Pos >= finishLine){
+
                     var finishPosition = document.querySelectorAll(".finished").length;
+
                     activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
+                    
                     clearInterval(car1);
+                    
                 }else{
 
                     // Setting correct speed for speed limits
@@ -511,9 +515,13 @@ function OnStart(e){
             function frame2(speed, position) {
 
                 if(car2Pos >= finishLine){
+
                     var finishPosition = document.querySelectorAll(".finished").length;
+
                     activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
+                    
                     clearInterval(car2);
+
                 }else{
 
                     // Setting correct speed for speed limits
@@ -531,8 +539,11 @@ function OnStart(e){
 
                     //Stopping on red light
                     if( (car2Pos + 40) < traffic_light_distance && (car2Pos + 60) > traffic_light_distance ){
+
                         if(document.querySelector("#redLight.currentLight") != null){
+
                             movePos = 0;
+
                         }
                     }
 
@@ -548,9 +559,13 @@ function OnStart(e){
             function frame3(speed, position) {
 
                 if(car3Pos >= finishLine){
+
                     var finishPosition = document.querySelectorAll(".finished").length;
+
                     activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
+                    
                     clearInterval(car3);
+
                 }else{
 
                     // Setting correct speed for speed limits
@@ -562,6 +577,7 @@ function OnStart(e){
 
                     }
 
+                    // Converting Km/h to km/s and translating it to pixels/s
                     var kms = speed * 0.000278;
                     var movePos = ((kms * (750 / carData.distance)) / 100) * animSpeed;
                     var traffic_light_distance = (carData.traffic_lights[0].position * (750 / carData.distance));
@@ -578,6 +594,8 @@ function OnStart(e){
                 }
             }
         }  
+    } else{
+        document.getElementById("startTb").style.setProperty("border-color", "#FF0000");
     }
 }
 
@@ -587,8 +605,8 @@ function OnStartValidation(e, value){
     var charCode = (e.which) ? e.which : e.keyCode;
 
     if (charCode == 8 || charCode == 46
-        || charCode == 37 || charCode == 39) {
-           return true;
+        || charCode == 37 || charCode == 39 || (charCode >= 96 && charCode <=105) ) {
+           return true; // Only numerical and numpad numerical with backspace, delete and arrows allowed
     }
     else if ( charCode < 48 || charCode > 57 ) {
         e.preventDefault();

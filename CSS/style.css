@@ -3,9 +3,10 @@
     padding: 0px auto;
 }
 
+/* Disable initial animation */
 .disable_transitions_anims div {
     animation: none !important;
-    }
+}
 
 #container{
     width: 900px;
@@ -61,7 +62,6 @@
     background: rgba(0, 255, 0, 0.3);
 }
 
-/* End selected item */
 /* Flipping */
 
 /* Initial flip only after clicked button once*/
@@ -91,6 +91,7 @@
     margin:5px;
 }
 
+/* Animation trigger for flipping on hover */
 .vertical.flip_container:hover .front {
     animation: to_back 0.2s linear normal forwards;
 }
@@ -120,7 +121,7 @@
 /* End flipping */
 
 
-/* First 3 childs and the rest positioning */
+/* First n childs and last n childs positioning */
 .car:nth-child(-n+3) .info{
     top:0px 
 }

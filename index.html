@@ -1,6 +1,6 @@
 <html !DOCTYPE>
     <head>
-        <title>Placeholder</title>
+        <title>HTEC - Frontend Test</title>
         <!-- Link to external CSS file -->
         <link rel="stylesheet" href="CSS/style.css" />
         <!-- Link to external Javascript file -->
@@ -24,6 +24,7 @@
                 <input type="hidden" class="distanceHidden" value="" />
                 <div id="redLight" class="currentLight"></div>
                 <div id="greenLight" class = ""></div>
+                <!-- Car containers -->
                 <div id="carOne" class=""></div>
                 <div id="carTwo" class = ""></div>
                 <div id="carThree" class=""></div>
@@ -31,7 +32,7 @@
                 
                 <section id="start">
                     <form name="startForm" method="POST" onsubmit="event.preventDefault(); OnStart();">
-                        <input type="textbox" id="startTb" placeholder="Animation speed" onkeydown="OnStartValidation(event, this.value);"/>
+                        <input type="textbox" id="startTb" placeholder="Animation speed" onkeydown="OnStartValidation(event);"/>
                         <input type="submit" id="startBtn" value="Start">
                     </form>
                 </section>
