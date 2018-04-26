@@ -459,6 +459,12 @@ function OnStart(e){
                 }
             }
 
+            var slPositions = carData.speed_limits;
+
+            slPositions.sort(function(a,b){
+                return a > b;
+            });
+
             var finishLine = 682.5;
 
             // Animation for first car
@@ -472,8 +478,26 @@ function OnStart(e){
                     activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
                     clearInterval(car1);
                 }else{
+
+                    // Setting correct speed for speed limits
+                    for(var i = 0; i < slPositions.length; i++){
+
+                        var speed_light_distance =  slPositions[i].position * (750 / carData.distance);
+
+                        speed = speed_light_distance < (car1Pos + 60) ? slPositions[i].speed : speed;
+
+                    }
+
                     var kms = speed * 0.000278;
                     var movePos = ((kms * (750 / carData.distance)) / 100) * animSpeed;
+                    var traffic_light_distance = (carData.traffic_lights[0].position * (750 / carData.distance));
+
+                    //Stopping on red light
+                    if( (car1Pos + 40) < traffic_light_distance && (car1Pos + 60) > traffic_light_distance ){
+                        if(document.querySelector("#redLight.currentLight") != null){
+                            movePos = 0;
+                        }
+                    }
 
                     car1Pos+= movePos;
                     activeCars[position].style.setProperty("left", car1Pos);
@@ -491,8 +515,26 @@ function OnStart(e){
                     activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
                     clearInterval(car2);
                 }else{
+
+                    // Setting correct speed for speed limits
+                    for(var i = 0; i < slPositions.length; i++){
+                        
+                        var speed_light_distance =  slPositions[i].position * (750 / carData.distance);
+
+                        speed = speed_light_distance < (car2Pos + 60) ? slPositions[i].speed : speed;
+
+                    }
+
                     var kms = speed * 0.000278;
                     var movePos = ((kms * (750 / carData.distance)) / 100) * animSpeed;
+                    var traffic_light_distance = (carData.traffic_lights[0].position * (750 / carData.distance));
+
+                    //Stopping on red light
+                    if( (car2Pos + 40) < traffic_light_distance && (car2Pos + 60) > traffic_light_distance ){
+                        if(document.querySelector("#redLight.currentLight") != null){
+                            movePos = 0;
+                        }
+                    }
 
                     car2Pos+= movePos;
                     activeCars[position].style.setProperty("left", car2Pos);
@@ -510,8 +552,26 @@ function OnStart(e){
                     activeCars[position].innerHTML += "<div id='place"+ (finishPosition + 1) + "' class= 'finished'><p>" + (finishPosition == 0 ? "I": finishPosition == 1? "II" : "III") + "</p></div>";
                     clearInterval(car3);
                 }else{
+
+                    // Setting correct speed for speed limits
+                    for(var i = 0; i < slPositions.length; i++){
+                        
+                        var speed_light_distance =  slPositions[i].position * (750 / carData.distance);
+
+                        speed = speed_light_distance < (car3Pos + 60) ? slPositions[i].speed : speed;
+
+                    }
+
                     var kms = speed * 0.000278;
                     var movePos = ((kms * (750 / carData.distance)) / 100) * animSpeed;
+                    var traffic_light_distance = (carData.traffic_lights[0].position * (750 / carData.distance));
+
+                    //Stopping on red light
+                    if( (car3Pos + 40) < traffic_light_distance && (car3Pos + 60) > traffic_light_distance ){
+                        if(document.querySelector("#redLight.currentLight") != null){
+                            movePos = 0;
+                        }
+                    }
 
                     car3Pos+= movePos;
                     activeCars[position].style.setProperty("left", car3Pos);
